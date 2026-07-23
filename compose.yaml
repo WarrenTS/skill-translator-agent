@@ -1,0 +1,28 @@
+services:
+  translator-agent:
+    build:
+      context: .
+      target: runtime
+    image: translator-agent:local
+    env_file:
+      - ${TRANSLATOR_WORKSPACE:-.}/.transenv
+    environment:
+      TRANSLATOR_SESSION_ID: ${TRANSLATOR_SESSION_ID:-}
+    volumes:
+      - type: bind
+        source: ${TRANSLATOR_INPUT_DIR:-.}
+        target: /work/input
+        read_only: true
+      - type: bind
+        source: ${TRANSLATOR_OUTPUT_DIR:-./translated}
+        target: /work/output
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+      - /run/translator-agent:size=8m,uid=10001,gid=10001,mode=0700
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    init: true
+    restart: "no"

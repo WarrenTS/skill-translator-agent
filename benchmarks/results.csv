@@ -1,0 +1,7 @@
+rank,model_id,label,quality_proxy,input_tokens,output_tokens,total_tokens,repair_retries,failed_runs,model_calls,provider_requests,reasoning_tokens,usage_complete,estimated_final_cost_usd,observed_experiment_tokens,observed_experiment_cost_usd,observed_cost_is_lower_bound
+1,google/gemma-4-31b-it,Gemma 4 31B,85.99,3331,2844,6175,0,0,2,2,0,true,0.001328500,6175,0.001328500,false
+2,deepseek/deepseek-v4-flash,DeepSeek V4 Flash,85.91,3333,2919,6252,0,0,2,2,216,true,0.000825390,6252,0.000825390,false
+3,google/gemma-4-26b-a4b-it,Gemma 4 26B,85.63,3332,2947,6279,0,2,2,2,0,true,0.001172430,30661,0.005702820,false
+4,z-ai/glm-4.7-flash,GLM 4.7 Flash,84.50,4794,3439,8233,2,1,11,11,0,false,0.001663240,20935,0.005224240,true
+5,openai/gpt-oss-120b,GPT-OSS 120B,84.03,3198,7110,10308,0,1,2,2,3890,true,0.001375740,17860,0.002461050,true
+6,openai/gpt-oss-20b,GPT-OSS 20B,82.22,6024,3811,9835,3,2,12,24,359,false,0.000708236,30032,0.002869594,true

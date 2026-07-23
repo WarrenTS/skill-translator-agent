@@ -1,0 +1,31 @@
+# Translator Agent workspace configuration
+# Copy to <workspace>/.transenv, then edit locally. Never commit this file.
+
+# Required: openai | nvidia | openrouter | custom
+TRANSLATOR_PROVIDER=custom
+
+# Required base URL, including /v1 or /api/v1 when the provider uses it.
+TRANSLATOR_API_BASE_URL=
+
+# Required model ID. Choose a low-cost/flash model supported by the endpoint.
+TRANSLATOR_MODEL=
+
+# required | optional | none
+TRANSLATOR_AUTH_MODE=optional
+
+# Leave blank only when auth mode is optional or none.
+TRANSLATOR_API_KEY=
+TRANSLATOR_RESPONSE_FORMAT=auto
+TRANSLATOR_MAX_OUTPUT_TOKENS=8192
+TRANSLATOR_REASONING_EFFORT=none
+
+# Cost and runtime defaults
+TRANSLATOR_COST_PROFILE=flash
+TRANSLATOR_MAX_RETRIES=1
+TRANSLATOR_MAX_BATCH_CHARS=12000
+# Base provider timeout; the runtime increases it deterministically for larger inputs and more targets.
+TRANSLATOR_TIMEOUT_SECONDS=60
+TRANSLATOR_IDLE_TIMEOUT_SECONDS=900
+
+# Set true only for a user-confirmed trusted self-hosted HTTP endpoint.
+TRANSLATOR_ALLOW_INSECURE_HTTP=false

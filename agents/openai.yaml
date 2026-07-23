@@ -1,0 +1,4 @@
+interface:
+  display_name: "Translator Agent"
+  short_description: "Translate text and files through a containerized agent"
+  default_prompt: "Use $translator-agent to translate this content and return a structured result."

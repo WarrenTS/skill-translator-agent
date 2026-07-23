@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "translator-agent-runtime"
+version = "0.1.0"
+description = "Low-context Dockerized LangGraph translation worker"
+requires-python = ">=3.12"
+dependencies = [
+  "langgraph==1.2.9",
+  "pydantic==2.13.4",
+  "PyYAML==6.0.2",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<9"]
+
+[project.scripts]
+translator-agent = "translator_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

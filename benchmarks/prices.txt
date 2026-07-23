@@ -1,0 +1,10 @@
+# OpenRouter lowest listed price snapshot used by the benchmark.
+# Captured: 2026-07-23
+# Units: USD per 1M input/output tokens
+
+google/gemma-4-26b-a4b-it: 0.06/0.33
+google/gemma-4-31b-it: 0.10/0.35
+deepseek/deepseek-v4-flash: 0.09/0.18
+z-ai/glm-4.7-flash: 0.06/0.40
+openai/gpt-oss-120b: 0.03/0.18
+openai/gpt-oss-20b: 0.029/0.14

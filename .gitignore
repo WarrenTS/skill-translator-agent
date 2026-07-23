@@ -1,0 +1,35 @@
+# Secrets and local provider configuration
+.transenv
+.transenv_*
+.env
+.env.*
+!.env.example
+
+# Translation artifacts and run data
+translated/
+output/
+outputs/
+runs/
+results/
+archive/
+*.run.json
+*.translation.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo

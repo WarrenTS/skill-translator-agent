@@ -1,0 +1,8 @@
+version: translator-tools/v1
+tools:
+  - read_input
+  - write_output
+  - extract_units
+  - validate_translation
+  - call_translation_model
+model_callable: false
