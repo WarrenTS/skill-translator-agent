@@ -2,7 +2,7 @@
 # Copy to <workspace>/.transenv, then edit locally. Never commit this file.
 
 # Required: openai | nvidia | openrouter | custom
-TRANSLATOR_PROVIDER=custom
+TRANSLATOR_PROVIDER=
 
 # Required base URL, including /v1 or /api/v1 when the provider uses it.
 TRANSLATOR_API_BASE_URL=
@@ -11,7 +11,7 @@ TRANSLATOR_API_BASE_URL=
 TRANSLATOR_MODEL=
 
 # required | optional | none
-TRANSLATOR_AUTH_MODE=optional
+TRANSLATOR_AUTH_MODE=
 
 # Leave blank only when auth mode is optional or none.
 TRANSLATOR_API_KEY=

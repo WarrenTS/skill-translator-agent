@@ -30,13 +30,33 @@ predictable.
 
 ## Quick start
 
+### Fastest path: ask your agent
+
+Give your agent this repository URL:
+
+```text
+https://github.com/WarrenTS/skill-translator-agent
+```
+
+Then ask:
+
+```text
+Inspect this repository's README.md and SKILL.md, install the translator-agent
+skill for me, build the translator-agent:local Docker image, and create a blank
+.transenv template in my workspace. Do not ask me to paste credentials into the
+conversation; stop and let me fill them in locally.
+```
+
+The manual installation steps are below if you prefer to review and run each
+command yourself.
+
 ### 1. Install the skill
 
 Clone the repository into the skills directory used by your agent host. For
 Codex, a typical personal installation is:
 
 ```bash
-git clone https://github.com/<your-account>/translator-agent.git \
+git clone https://github.com/WarrenTS/skill-translator-agent.git \
   ~/.codex/skills/translator-agent
 cd ~/.codex/skills/translator-agent
 ```
@@ -66,14 +86,16 @@ chmod 600 /path/to/workspace/.transenv
 Edit it locally:
 
 ```dotenv
-TRANSLATOR_PROVIDER=openrouter
-TRANSLATOR_API_BASE_URL=https://openrouter.ai/api/v1
-TRANSLATOR_MODEL=google/gemma-4-26b-a4b-it
-TRANSLATOR_AUTH_MODE=required
-TRANSLATOR_API_KEY=replace-locally
+TRANSLATOR_PROVIDER=
+TRANSLATOR_API_BASE_URL=
+TRANSLATOR_MODEL=
+TRANSLATOR_AUTH_MODE=
+TRANSLATOR_API_KEY=
 ```
 
 Never paste the key into an agent conversation and never commit `.transenv`.
+Set `TRANSLATOR_PROVIDER` to `openai`, `nvidia`, `openrouter` or `custom`, and
+set `TRANSLATOR_AUTH_MODE` to `required`, `optional` or `none`.
 For a trusted self-hosted endpoint, a blank key is valid when
 `TRANSLATOR_PROVIDER=custom` and `TRANSLATOR_AUTH_MODE=optional` or `none`.
 
