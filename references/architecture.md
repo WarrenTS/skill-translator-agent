@@ -19,7 +19,7 @@
 
 ## Boundaries
 
-Package the complete translator runtime as a Docker image. Keep the Codex skill as the orchestrator-facing layer, but let it do only four host-side operations: construct a JSON request, choose explicit volume mounts, pass provider settings as container environment variables, and invoke Docker. Do not install or execute translator Python packages, parsers, validators, LangGraph code, or model clients on the host.
+Package the complete translator runtime as a Docker image. Keep the Codex skill as the orchestrator-facing layer. Its host-side scope is limited to Docker preflight, building the bundled runtime image when absent, constructing a JSON request, choosing explicit volume mounts, passing provider settings as container environment variables, and invoking Docker. Do not install or execute translator Python packages, parsers, validators, LangGraph code, or model clients on the host.
 
 Use three trust zones:
 
@@ -31,7 +31,7 @@ The host may confirm a declared output artifact exists after the container exits
 
 ## Container lifecycle
 
-Start the translator runtime before submitting a request. Run its daemon as container PID 1 and expose its control interface only through a Unix-domain socket inside the container. Do not publish an HTTP port for the default profile.
+Before configuration or container startup, distinguish Docker CLI absence, daemon unavailability, and a missing `translator-agent:local` image. Build a missing image only from the bundled `Dockerfile` with the pinned runtime target; never pull or silently substitute an unrelated tag. Start the translator runtime only after preflight succeeds. Run its daemon as container PID 1 and expose its control interface only through a Unix-domain socket inside the container. Do not publish an HTTP port for the default profile.
 
 Choose one lifecycle at launch time:
 
@@ -242,6 +242,7 @@ Optimize for inexpensive flash-class models and low repeated context:
 
 ### Phase 1: Protocol and secure skeleton
 
+- Add host-side Docker CLI, daemon, and exact-image preflight with distinct errors and a bundled-image-only build path.
 - Add first-use provider selection, `.transenv` creation from the bundled template, Git-ignore verification, and a stop-for-user-configuration handoff.
 - Add Pydantic request/response models and JSON Schema export.
 - Add the in-container daemon, Unix-domain control socket, `health`, `capabilities`, and `request` commands, JSON stdin/stdout handling, and stable exit codes.
@@ -276,6 +277,7 @@ Optimize for inexpensive flash-class models and low repeated context:
 ## Acceptance criteria
 
 - Every mode emits the same versioned response envelope.
+- The caller distinguishes a missing Docker CLI, an unreachable daemon, a missing image, a failed image build, and an unhealthy runtime before submitting work.
 - The host needs only a compatible Docker client/daemon and explicit input/output paths; no translator runtime or validation code executes on it.
 - The caller starts a healthy compatible container before submitting work and obtains capabilities before its first request.
 - Ephemeral containers stop and are removed after response capture; session containers are retained only for the same workflow and stop after a bounded idle timeout or explicit cleanup.

@@ -7,6 +7,18 @@ description: Translate inline text or file content through a Dockerized LangGrap
 
 Use Docker as the complete translator execution boundary. Keep the calling agent responsible only for understanding user intent, constructing the request, selecting explicit mounts, invoking the image, and presenting the returned result. Perform request validation, path enforcement, file parsing, LangGraph execution, model calls, output writing, and artifact validation inside the container. Exchange machine-readable JSON with the container; use JSON or YAML for saved translation bundles.
 
+## Preflight the Docker runtime
+
+Run this host-side preflight on the first invocation and before every container start:
+
+1. Confirm the `docker` CLI exists. If it is missing, stop and ask the user to install Docker Engine or Docker Desktop; do not install it automatically.
+2. Run `docker version --format '{{.Server.Version}}'` to confirm the daemon is reachable. If the CLI exists but the daemon is unavailable, stop and ask the user to start or repair Docker.
+3. Run `docker image inspect translator-agent:local --format '{{.Id}}'`. If the image exists, do not rebuild it during a normal invocation.
+4. If the image is missing, locate the `Dockerfile` beside this `SKILL.md` and run `docker build --target runtime -t translator-agent:local <skill-root>`. Request approval first when the host requires it. Do not pull an unrelated image or substitute another tag.
+5. Inspect `translator-agent:local` again. If the build or inspection fails, stop and report the failed stage plus a concise recovery action.
+
+Treat CLI absence, daemon unavailability, image absence, build failure, and runtime health failure as distinct errors. Keep preflight output out of the translation request and model context.
+
 ## Initialize workspace configuration
 
 Require the user to identify the workspace before the first invocation. Look for `<workspace>/.transenv` without displaying its content.
@@ -70,7 +82,7 @@ Provide OpenAI-compatible endpoint settings through container environment variab
 
 Never echo, persist, translate, or include these values in model context beyond the API client's transport configuration.
 
-If Docker or the translator image is unavailable, stop and report that the translator runtime has not been installed; do not install or invoke a host-side translation runtime and do not silently substitute an unrelated translation service.
+If Docker becomes unavailable after preflight, stop and report the failed stage; do not install or invoke a host-side translation runtime and do not silently substitute an unrelated translation service.
 
 ## Minimize model cost and context
 

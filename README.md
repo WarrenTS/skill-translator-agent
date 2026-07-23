@@ -118,9 +118,11 @@ Use $translator-agent to translate the JSON localization file into en and ja.
 Keep keys, placeholders, Markdown and URLs unchanged.
 ```
 
-On first use, the main agent checks for the workspace `.transenv`. If it is
-missing, the skill instructs the agent to create a template, ask the user to
-configure it locally, and stop before starting Docker.
+On first use, the main agent confirms that the Docker CLI and daemon are
+available and checks for `translator-agent:local`. If the image is missing, it
+builds only the bundled runtime target. It then checks for the workspace
+`.transenv`; if that file is missing, the skill creates a blank template, asks
+the user to configure it locally, and stops before starting a container.
 
 ## Supported operations
 
